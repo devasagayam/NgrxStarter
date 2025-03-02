@@ -1,0 +1,63 @@
+<div class="container">
+    <h1>User Management</h1>
+  
+    <div *ngIf="error$ | async as error" class="error">{{ error }}</div>
+  
+    <div class="actions">
+      <button class="add-btn" (click)="showAddUserForm()" *ngIf="!(addingUser$ | async)">
+        Add User
+      </button>
+    </div>
+  
+    <app-user-form *ngIf="addingUser$ | async" (save)="addUser($event)" (cancel)="cancelAddUser()"></app-user-form>
+  
+    <div *ngIf="loading$ | async" class="loading">Loading users...</div>
+  
+    <ng-container *ngIf="!(loading$ | async) && (users$ | async) as users">
+      <table *ngIf="users.length">
+        <thead>
+          <tr>
+            <th style="width: 10%;">ID</th>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+            <tr *ngFor="let user of users; trackBy: trackByUserId">
+                <td>{{ user.id }}</td>
+              
+                <ng-container *ngIf="(editingUserId$ | async) === user.id; else displayRow">
+                  <td colspan="4"> 
+                    <form [formGroup]="userForm" (ngSubmit)="saveUser(user.id)">
+                      <table style="width: 100%;">
+                        <tr>
+                          <td><input formControlName="name" class="form-input" /></td>
+                          <td><input formControlName="username" class="form-input" /></td>
+                          <td><input formControlName="email" class="form-input" /></td>
+                          <td>
+                            <button class="save-btn" type="submit">Save</button>
+                            <button class="cancel-btn" type="button" (click)="cancelEdit()">Cancel</button>
+                          </td>
+                        </tr>
+                      </table>
+                    </form>
+                  </td>
+                </ng-container>
+              
+                <ng-template #displayRow>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.username }}</td>
+                  <td>{{ user.email }}</td>
+                  <td>
+                    <button class="edit-btn" (click)="editUser(user)">Edit</button>
+                  </td>
+                </ng-template>
+              </tr>
+        </tbody>
+      </table>
+    </ng-container>
+  </div>
+  

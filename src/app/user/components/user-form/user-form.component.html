@@ -1,0 +1,19 @@
+<div class="add-user-form">
+    <h2>Add New User</h2>
+    <form [formGroup]="newUserForm" (ngSubmit)="onSubmit()">
+      <label>Name:</label>
+      <input formControlName="name" placeholder="Enter name" required />
+      
+      <label>Username:</label>
+      <input formControlName="username" placeholder="Enter username" required />
+      
+      <label>Email:</label>
+      <input formControlName="email" placeholder="Enter email" required />
+      
+      <div class="form-actions">
+        <button type="submit" class="save-btn" [disabled]="newUserForm.invalid">Save</button>
+        <button type="button" class="cancel-btn" (click)="cancel.emit()">Cancel</button>
+      </div>
+    </form>
+  </div>
+  
