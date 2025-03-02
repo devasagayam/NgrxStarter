@@ -9,7 +9,7 @@
       </button>
     </div>
   
-    <app-user-form *ngIf="addingUser$ | async" (save)="addUser($event)" (cancel)="cancelAddUser()"></app-user-form>
+    <app-user-form *ngIf="addingUser$ | async"  (cancel)="cancelAddUser()"></app-user-form>
   
     <div *ngIf="loading$ | async" class="loading">Loading users...</div>
   

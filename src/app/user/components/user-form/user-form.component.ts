@@ -1,6 +1,7 @@
 import { Component, inject, output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../models/user.model';
+import { UserFacade } from '../../../services/user.facade';
 
 @Component({
   selector: 'app-user-form',
@@ -8,9 +9,8 @@ import { User } from '../../../models/user.model';
   styleUrl: './user-form.component.css'
 })
 export class UserFormComponent {
-  save = output<User>();
   cancel = output();
-
+  userFacade = inject(UserFacade)
   fb = inject(FormBuilder);
 
   newUserForm: FormGroup =this.fb.group({
@@ -25,7 +25,7 @@ export class UserFormComponent {
         id: Date.now(),
         ...this.newUserForm.value,
       };
-      this.save.emit(newUser);
+      this.userFacade.addUser(newUser);
     }
   }
 }
