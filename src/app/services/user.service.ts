@@ -19,7 +19,7 @@ export class UserService {
     return this.http.put<User>(`${this.apiUrl}/${user.id}`,user);
   }
 
-  addUser(user:User):Observable<User>{
+  addUser(user:Omit<User,'id'>):Observable<User>{
     return this.http.post<User>(this.apiUrl,user)
   }
 }

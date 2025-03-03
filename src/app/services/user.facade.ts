@@ -31,7 +31,7 @@ export class UserFacade {
         this.store.dispatch(UserActions.setAddingUser({ adding: adding }));
     }
 
-    addUser(newUser:User){
+    addUser(newUser:Omit<User,'id'>){
         this.store.dispatch(UserActions.addUser({ user: newUser }));
     }
 }

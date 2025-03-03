@@ -1,19 +1,27 @@
 <div class="add-user-form">
-    <h2>Add New User</h2>
-    <form [formGroup]="newUserForm" (ngSubmit)="onSubmit()">
-      <label>Name:</label>
-      <input formControlName="name" placeholder="Enter name" required />
-      
-      <label>Username:</label>
-      <input formControlName="username" placeholder="Enter username" required />
-      
-      <label>Email:</label>
-      <input formControlName="email" placeholder="Enter email" required />
-      
-      <div class="form-actions">
-        <button type="submit" class="save-btn" [disabled]="newUserForm.invalid">Save</button>
-        <button type="button" class="cancel-btn" (click)="cancel.emit()">Cancel</button>
-      </div>
-    </form>
-  </div>
-  
+  <h2>Add New User</h2>
+  <form [formGroup]="newUserForm" (ngSubmit)="onSubmit()">
+    <label>Name:</label>
+    <input formControlName="name" placeholder="Enter name" required />
+    <div *ngIf="newUserForm.controls['name'].touched && newUserForm.controls['name'].invalid">
+      <small class="error-text">Name is required.</small>
+    </div>
+
+    <label>Username:</label>
+    <input formControlName="username" placeholder="Enter username" required />
+    <div *ngIf="newUserForm.controls['username'].touched && newUserForm.controls['username'].invalid">
+      <small class="error-text">Username is required.</small>
+    </div>
+
+    <label>Email:</label>
+    <input formControlName="email" placeholder="Enter email" required />
+    <div *ngIf="newUserForm.controls['email'].touched && newUserForm.controls['email'].invalid">
+      <small class="error-text">Enter a valid email.</small>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="save-btn">Save</button>
+      <button type="button" class="cancel-btn" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+</div>
